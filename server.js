@@ -3,10 +3,11 @@ const app = express();
 const { ExpressPeerServer } = require("peer");
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
-const path = require("path");
+
+app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "index.html"));
+  res.sendFile("index.html");
 });
 
 io.on("connection", (socket) => {
