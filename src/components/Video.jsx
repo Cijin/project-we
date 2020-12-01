@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
 function Video() {
+  const userVideo = useRef();
   const [stream, setStream] = useState();
 
   useEffect(() => {
@@ -9,13 +10,15 @@ function Video() {
       .then((userMediaStream) => {
         setStream(userMediaStream);
       });
-
-    if (userVideo.current) {
-      userVideo.current.srcObject = stream;
-    }
   }, []);
 
-  const userVideo = useRef();
+  if (stream && userVideo.current) {
+    userVideo.current.srcObject = stream;
+    userVideo.current.addEventListener("loadedmetadata", () => {
+      userVideo.current.play();
+    });
+  }
+
   return (
     <>
       <video playsInline muted autoPlay ref={userVideo}></video>
