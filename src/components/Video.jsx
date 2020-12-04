@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
+import Peer from "peerjs";
+
+const peer = new Peer();
+const peers = {};
 
 function Video() {
   const userVideo = useRef();
@@ -19,7 +23,6 @@ function Video() {
         setStream(userMediaStream);
 
         if (userVideo.current) {
-          console.log(stream, userVideo);
           userVideo.current.srcObject = userMediaStream;
         }
       });
@@ -30,12 +33,7 @@ function Video() {
     UserVideo = <video playsInline muted autoPlay ref={userVideo}></video>;
   }
 
-  return (
-    <>
-      {UserVideo}
-      <p>Response from Server: {response}</p>
-    </>
-  );
+  return <>{UserVideo}</>;
 }
 
 export default Video;
