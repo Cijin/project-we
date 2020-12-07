@@ -1,11 +1,10 @@
 {
-  "name": "projectWe",
+  "name": "projectwe",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "nodemon server.js",
-    "start": "webpack --config webpack.config.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
