@@ -3,7 +3,7 @@ const { ExpressPeerServer } = require("peer");
 const path = require("path");
 
 const app = express();
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT;
 
 app.use(express.static("public"));
 
