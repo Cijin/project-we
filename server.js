@@ -1,33 +1,23 @@
 const express = require("express");
-const app = express();
-const http = require("http").createServer(app);
-const io = require("socket.io")(http);
-const { v4: uuidV4 } = require("uuid");
+const { ExpressPeerServer } = require("peer");
 const path = require("path");
 
+const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.redirect(`/${uuidV4()}`);
+  res.sendFile(path.resolve(__dirname, "index.html"));
 });
 
-app.get("/:roomId", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "public/index.html"));
+const listener = app.listen(PORT, () => {
+  console.log("Your app is listening on Port: ", PORT);
 });
 
-io.on("connection", (socket) => {
-  socket.on("join-room", (roomId, userId) => {
-    socket.join(roomId);
-    socket.to(roomId).broadcast.emit("user-connected", userId);
-  });
-
-  socket.on("disconnect", () => {
-    socket.to(roomId).broadcast.emit("user-disconnected", userId);
-  });
+const peerServer = ExpressPeerServer(listener, {
+  debug: true,
+  path: "/myapp",
 });
 
-http.listen(PORT, () => {
-  console.log(`Server listening on Port: ${PORT}`);
-});
+app.use("/peerjs", peerServer);
