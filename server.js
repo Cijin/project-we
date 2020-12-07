@@ -18,4 +18,10 @@ app.get("/:room", (request, response) => {
   res.render("room", { roomId: req.params.room });
 });
 
+io.on("connection", (socket) => {
+  socket.on("join-room", (roomId, userId) => {
+    console.log(roomId, userId);
+  });
+});
+
 server.listen(PORT);
