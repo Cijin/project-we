@@ -28,6 +28,10 @@ io.on("connection", (socket) => {
     socket.join(roomId);
     socket.to(roomId).broadcast.emit("user-connected", userId);
 
+    socket.on("chat message", (message) => {
+      socket.to(roomId).broadcast.emit("new message", message);
+    });
+
     socket.on("disconnect", () => {
       socket.to(roomId).broadcast.emit("user-disconnected", userId);
     });
