@@ -2,12 +2,17 @@ const socket = io("/");
 const myPeer = new Peer();
 
 const videoGrid = document.querySelector("#video-grid");
+const chatInput = document.querySelector(".chat-message");
+const sendButton = document.querySelector(".send-icon");
+const messages = document.querySelector(".messages");
+
 const myVideo = document.createElement("video");
 myVideo.muted = true;
 
 const peers = {};
 let myVideoStream;
 
+// get users video stream and send over peer connection
 navigator.mediaDevices
   .getUserMedia({ video: true, audio: true })
   .then((stream) => {
@@ -16,7 +21,7 @@ navigator.mediaDevices
 
     myPeer.on("call", (call) => {
       call.answer(stream);
-      // to display your video on the calle's screen
+      // to display your video on the peers screen
       const userVideo = document.createElement("video");
 
       call.on("stream", (userVideoStream) => {
@@ -29,15 +34,34 @@ navigator.mediaDevices
     });
   });
 
+socket.on("new message", (peerMessage) => {
+  messages.append(`<li class="message peerMessage">${peerMessage}</li>`);
+});
+
 socket.on("user-disconnected", (userId) => {
   if (peers[userId]) {
     peers[userId].close();
   }
 });
 
+// add new user to room
 myPeer.on("open", (id) => {
   socket.emit("join-room", ROOM_ID, id);
 });
+
+chatInput.onkeypress = function (event) {
+  if (event.key === "Enter" && chatInput.value.length) {
+    emitMessage(chatInput.value);
+    chatInput.value = "";
+  }
+};
+
+sendButton.onclick = function () {
+  if (chatInput.value.length) {
+    emitMessage(chatInput.value);
+    chatInput.value = "";
+  }
+};
 
 function addVideoStream(video, stream) {
   video.srcObject = stream;
@@ -61,6 +85,12 @@ function connectToNewUser(userId, stream) {
   });
 
   peers[userId] = call;
+}
+
+function emitMessage(message) {
+  // display message on users ui
+  messages.append(`<li class="message myMessage">${message}</li>`);
+  socket.emit("chat message", message);
 }
 
 function toggleVideoIcon(isVideoEnabled) {

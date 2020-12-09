@@ -9,9 +9,10 @@
     const ROOM_ID = "<%= roomId %>"
   </script>
 
-  <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+  <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js" defer></script>
   <script src="/socket.io/socket.io.js" defer></script>
   <script src="script.js" defer></script>
+  <script defer src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
   <link rel="stylesheet" href="style.css">
 
   <title>projectWe</title>
@@ -55,6 +56,9 @@
         <ion-icon name="chatbox-outline"></ion-icon>
       </div>
     </div>
+    <div class="chat-window">
+      <ul class="messages"></ul>
+    </div>
     <div class="chat-input">
       <input class="chat-message" type="text" placeholder="Message everyone here..."/>
       <div class="send-icon icon">
@@ -62,6 +66,5 @@
       </div>
     </div>
   </div>
-  <script defer src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 </body>
 </html>
