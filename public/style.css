@@ -121,7 +121,8 @@ video {
 }
 
 .message {
-  display: inline-block;
+  display: block;
+  float: left;
   list-style: none;
   padding: 20px;
   max-width: 80%;
