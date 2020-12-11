@@ -35,7 +35,7 @@ navigator.mediaDevices
   });
 
 socket.on("new message", (peerMessage) => {
-  messages.append(`<li class="message peerMessage">${peerMessage}</li>`);
+  appendMessage(peerMessage, "peerMessage");
 });
 
 socket.on("user-disconnected", (userId) => {
@@ -87,9 +87,18 @@ function connectToNewUser(userId, stream) {
   peers[userId] = call;
 }
 
+function appendMessage(message, className) {
+  const listElement = document.createElement("li");
+  listElement.classList.add("message", `${className}`);
+  const messageNode = document.createTextNode(message);
+
+  listElement.appendChild(messageNode);
+  messages.appendChild(listElement);
+}
+
 function emitMessage(message) {
   // display message on users ui
-  messages.append(`<li class="message myMessage">${message}</li>`);
+  appendMessage(message, "myMessage");
   socket.emit("chat message", message);
 }
 

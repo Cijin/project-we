@@ -1,6 +1,7 @@
 /* Video Grid Section */
 
 body {
+  font-family: "Roboto", sans-serif;
   height: 100vh;
   overflow: hidden;
   margin: 0;
@@ -101,10 +102,13 @@ video {
 }
 
 .chat-message {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
   border: none;
   border-radius: 15px;
   padding: 15px;
   width: 72%;
+  resize: none;
 }
 
 .send-icon {
@@ -114,4 +118,23 @@ video {
   background-color: #00a389;
   color: #ffffff;
   font-size: 35px;
+}
+
+.message {
+  display: inline-block;
+  list-style: none;
+  padding: 20px;
+  max-width: 80%;
+  height: auto;
+  word-break: break-word;
+  border-radius: 25px;
+  background-color: #fff;
+  color: #403f3f;
+  white-space: normal;
+  margin: 10px;
+  overflow-x: none;
+}
+
+.myMessage {
+  background-color: #d0d3e3;
 }
