@@ -50,14 +50,16 @@ myPeer.on("open", (id) => {
 });
 
 chatInput.onkeypress = function (event) {
-  if (event.key === "Enter" && chatInput.value.length) {
+  // this did my head in, since it is a text area, I had to trim the value
+  // and to return a falsy value if it was empty :D
+  if (event.key === "Enter" && chatInput.value.trim()) {
     emitMessage(chatInput.value);
     chatInput.value = "";
   }
 };
 
 sendButton.onclick = function () {
-  if (chatInput.value.length) {
+  if (chatInput.value.trim()) {
     emitMessage(chatInput.value);
     chatInput.value = "";
   }
