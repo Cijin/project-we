@@ -1,2 +1,2 @@
 # project-we
-React App for realtime video, audio and chat.
+App for realtime video, audio and chat.
