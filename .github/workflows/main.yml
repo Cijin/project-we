@@ -28,4 +28,4 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Check lint and tests
         run: |
-          npm lint
+          npm run lint
