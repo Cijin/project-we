@@ -23,7 +23,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Install Dependecies
-        run: npm
+        run: npm install
 
       # Runs a set of commands using the runners shell
       - name: Check lint and tests
